@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateQuizRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuizCollection;
 use App\Http\Resources\QuizResource;
-use App\Models\QuizDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +22,9 @@ class QuizController extends Controller
             'per_page' => 'nullable|integer|gt:0'
         ]);
 
-        $quizzes = Quiz::query()->with('details')->paginate($request->per_page ?? 10);
+        $quizzes = Quiz::query()
+            ->with('details')
+            ->paginate($request->per_page ?? 10);
         return response()->api([
             "quizzes" => (new QuizCollection($quizzes))->response()->getData(true)
         ]);
@@ -114,5 +115,23 @@ class QuizController extends Controller
             throw $th;
         }
         return response()->api();
+    }
+
+    /**
+     * get quiz by code
+     */
+    public function getQuizBycode(Request $request){
+        $request->validate([
+            'code' => 'required|string|exists:quizzes,code'
+        ]);
+
+        $quiz = Quiz::query()
+        ->where('code',  $request->code)
+        ->get();
+        $quiz->load('details');
+
+        return response()->api([
+            'quiz' => new QuizCollection($quiz)
+        ]);
     }
 }

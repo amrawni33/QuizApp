@@ -31,4 +31,14 @@ class Quiz extends Model
     {
         return $this->hasMany(QuizDetails::class, 'quiz_id', 'id');
     }
+
+    /**
+     * Get all of the details for the quiz
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function grade()
+    {
+        return $this->hasMany(Grade::class, 'quiz_id', 'id');
+    }
 }

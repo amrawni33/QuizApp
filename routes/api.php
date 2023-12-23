@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Front\GradeController;
 use App\Http\Controllers\Api\Front\QuizController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/{quiz}', [QuizController::class, 'update']);
         Route::delete('/{quiz}', [QuizController::class, 'destroy']);
     });
+    Route::get('/get-quiz', [QuizController::class, 'getQuizBycode']);
 
+    Route::prefix('grade')->group(function () {
+        Route::get('/', [GradeController::class, 'index']);
+        Route::get('/{grade}', [GradeController::class, 'show']);
+        Route::post('/', [GradeController::class, 'store']);
+        Route::put('/{grade}', [GradeController::class, 'update']);
+        Route::delete('/{grade}', [GradeController::class, 'destroy']);
+    });
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
