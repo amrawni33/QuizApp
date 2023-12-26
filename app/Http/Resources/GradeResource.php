@@ -17,7 +17,7 @@ class GradeResource extends JsonResource
         return [
             'id' => $this->id,
             'student_grade' => $this->student_grade,
-            'student_grade' => $this->student_grade,
+            'quiz_grade' => $this->quiz_grade,
             'student_name' => $this->user?->name,
             'student_id' => $this->user?->id,
             'quiz_id' => $this->quiz?->id,

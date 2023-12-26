@@ -21,6 +21,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout/{user}', [AuthController::class, 'logout']);
+    Route::get('/user/{user}', [AuthController::class, 'show']);
 
     Route::prefix('quiz')->group(function () {
         Route::get('/', [QuizController::class, 'index']);

@@ -48,10 +48,10 @@ class AuthController extends Controller
 
     } //end of login
 
+    public function show(User $user){
 
-    public function userinit(){
         return response()->api([
-            "users"=> config('userConf.users.students')
+            'grade' => new UserResource($user)
         ]);
     }
 
