@@ -55,6 +55,26 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getEdus(){
+
+        $educs = User::query()
+        ->where('isEduo', true)->get();
+
+        return response()->api([
+            'educators' => UserResource::collection($educs)
+        ]);
+    }
+
+    public function getstudents(){
+
+        $students = User::query()
+        ->where('isEduo', false)->get();
+
+        return response()->api([
+            'students' => UserResource::collection($students)
+        ]);
+    }
+
     public function logout(User $user)
     {
         $user->tokens()->delete();
