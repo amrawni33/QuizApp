@@ -22,7 +22,8 @@ class UpdateGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grade' => 'required|numeric',
+            'quiz_grade' => 'required|numeric',
+            'student_grade' => 'required|numeric',
             'quiz_id' => 'required|exists:quizzes,id',
             'user_id' => 'required|exists:users,id',
         ];

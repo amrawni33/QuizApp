@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->float('grade');
+            $table->float('student_grade');
+            $table->float('quiz_grade');
             $table->unsignedBigInteger('quiz_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

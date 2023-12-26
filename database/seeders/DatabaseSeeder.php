@@ -20,11 +20,15 @@ class DatabaseSeeder extends Seeder
             'abdehady@fci.bu.edu.eg',
             'fatma@fci.bu.edu.eg',
         ];
+        $edu=[
+            'amr@fci.bu.edu.eg',
+            'anas@fci.bu.edu.eg',
+        ];
         foreach ($students as $student) {
             \App\Models\User::factory()->create([
                 'name' => trim($student, '@fci.bu.edu.eg'),
                 'email' => $student,
-                'isEduo' => true,
+                'isEduo' => in_array($student, $edu),
             ]);
         }
 
